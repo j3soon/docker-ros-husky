@@ -368,8 +368,10 @@ sudo mkdir -p /etc/ros
 if [ -e /etc/profile.d/clearpath-ros-environment.sh ]; then
   echo -e "\e[33mWarn: CPR ROS environment exist, skipping\e[0m"
 else
-  sudo wget -q -O /etc/profile.d/clearpath-ros-environment.sh \
-    https://raw.githubusercontent.com/clearpathrobotics/ros_computer_setup/main/files/clearpath-ros-environment.sh
+  # sudo wget -q -O /etc/profile.d/clearpath-ros-environment.sh \
+  #   https://raw.githubusercontent.com/clearpathrobotics/ros_computer_setup/main/files/clearpath-ros-environment.sh
+  sudo cp /root/catkin_ws/thirdparty/files/clearpath-ros-environment.sh \
+      /etc/profile.d/clearpath-ros-environment.sh
   # Check if was added
   if [ ! -e /etc/profile.d/clearpath-ros-environment.sh ]; then
     echo -e "\e[31mError: CPR ROS environment exist, exiting\e[0m"
@@ -380,8 +382,10 @@ fi
 if [ -e /etc/ros/setup.bash ]; then
   echo -e "\e[33mWarn: CPR ROS robot environment exist, skipping\e[0m"
 else
-  sudo wget -q -O /etc/ros/setup.bash \
-    https://raw.githubusercontent.com/clearpathrobotics/ros_computer_setup/main/files/setup.bash
+  # sudo wget -q -O /etc/ros/setup.bash \
+  #   https://raw.githubusercontent.com/clearpathrobotics/ros_computer_setup/main/files/setup.bash
+  sudo cp /root/catkin_ws/thirdparty/files/setup.bash \
+      /etc/ros/setup.bash
   sudo sed -i "s/UNKNOWN_ROS_DISTRO/${ros_version}/g" /etc/ros/setup.bash
   # Check if was added
   if [ ! -e /etc/ros/setup.bash ]; then
@@ -408,8 +412,10 @@ fi
 if [ -e /etc/ros/rosdep/sources.list.d/50-clearpath.list ]; then
   echo -e "\e[33mWarn: CPR rosdeps exist, skipping\e[0m"
 else
-  sudo wget -q https://raw.githubusercontent.com/clearpathrobotics/public-rosdistro/master/rosdep/50-clearpath.list -O \
-    /etc/ros/rosdep/sources.list.d/50-clearpath.list
+  # sudo wget -q https://raw.githubusercontent.com/clearpathrobotics/public-rosdistro/master/rosdep/50-clearpath.list -O \
+  #   /etc/ros/rosdep/sources.list.d/50-clearpath.list
+  sudo cp /root/catkin_ws/thirdparty/50-clearpath.list \
+      /etc/ros/rosdep/sources.list.d/50-clearpath.list
   # Check if was added
   if [ ! -e /etc/ros/rosdep/sources.list.d/50-clearpath.list ]; then
     echo -e "\e[31mError: CPR rosdeps, exiting\e[0m"
@@ -420,23 +426,35 @@ rosdep -q update
 echo -e "\e[32mDone: Configuring rosdep\e[0m"
 echo ""
 
-echo -e "\e[94mConfiguring udev rules\e[0m"
-sudo wget -q -O /etc/udev/rules.d/41-clearpath.rules \
-  https://raw.githubusercontent.com/clearpathrobotics/ros_computer_setup/main/files/udev/41-clearpath.rules
-sudo wget -q -O /etc/udev/rules.d/41-logitech.rules \
-  https://raw.githubusercontent.com/clearpathrobotics/ros_computer_setup/main/files/udev/41-logitech.rules
-sudo wget -q -O /etc/udev/rules.d/52-ftdi.rules \
-  https://raw.githubusercontent.com/clearpathrobotics/ros_computer_setup/main/files/udev/52-ftdi.rules
-sudo wget -q -O /etc/udev/rules.d/60-startech.rules \
-  https://raw.githubusercontent.com/clearpathrobotics/ros_computer_setup/main/files/udev/60-startech.rules
-echo -e "\e[32mDone: Configuring udev rules\e[0m"
-echo ""
+# echo -e "\e[94mConfiguring udev rules\e[0m"
+# # sudo wget -q -O /etc/udev/rules.d/41-clearpath.rules \
+# #   https://raw.githubusercontent.com/clearpathrobotics/ros_computer_setup/main/files/udev/41-clearpath.rules
+# sudo cp /root/catkin_ws/thirdparty/files/udev/41-clearpath.rules \
+#     /etc/udev/rules.d/41-clearpath.rules
+# # sudo wget -q -O /etc/udev/rules.d/41-logitech.rules \
+# #   https://raw.githubusercontent.com/clearpathrobotics/ros_computer_setup/main/files/udev/41-logitech.rules
+# sudo cp /root/catkin_ws/thirdparty/files/udev/41-logitech.rules \
+#     /etc/udev/rules.d/41-logitech.rules
+# # sudo wget -q -O /etc/udev/rules.d/52-ftdi.rules \
+# #   https://raw.githubusercontent.com/clearpathrobotics/ros_computer_setup/main/files/udev/52-ftdi.rules
+# sudo cp /root/catkin_ws/thirdparty/files/udev/52-ftdi.rules \
+#     /etc/udev/rules.d/52-ftdi.rules
+# # sudo wget -q -O /etc/udev/rules.d/60-startech.rules \
+# #   https://raw.githubusercontent.com/clearpathrobotics/ros_computer_setup/main/files/udev/60-startech.rules
+# sudo cp /root/catkin_ws/thirdparty/files/udev/60-startech.rules \
+#     /etc/udev/rules.d/60-startech.rules
+# echo -e "\e[32mDone: Configuring udev rules\e[0m"
+# echo ""
 
 echo -e "\e[94mConfiguring system configs\e[0m"
-wget -q -O $HOME/.screenrc \
-  https://raw.githubusercontent.com/clearpathrobotics/ros_computer_setup/main/files/config/.screenrc
-wget -q -O $HOME/.vimrc \
-  https://raw.githubusercontent.com/clearpathrobotics/ros_computer_setup/main/files/config/.vimrc
+# wget -q -O $HOME/.screenrc \
+#   https://raw.githubusercontent.com/clearpathrobotics/ros_computer_setup/main/files/config/.screenrc
+sudo cp /root/catkin_ws/thirdparty/files/configs/.screenrc \
+    $HOME/.screenrc
+# wget -q -O $HOME/.vimrc \
+#   https://raw.githubusercontent.com/clearpathrobotics/ros_computer_setup/main/files/config/.vimrc
+sudo cp /root/catkin_ws/thirdparty/files/configs/.vimrc \
+    $HOME/.vimrc
 
 # create /etc/rc.local if it doesn't exist yet
 if [ ! -f /etc/rc.local ];
@@ -500,7 +518,8 @@ echo ""
 STORAGE_DRIVE="/dev/nvme0n1"
 if [ -e $STORAGE_DRIVE ]; then
   echo -e "\e[94mm2 drive detected\e[0m"
-  prompt_yesNO drive_prompt "\e[94mAutomount m2 storage to /mnt/storage\e[0m"
+  # prompt_yesNO drive_prompt "\e[94mAutomount m2 storage to /mnt/storage\e[0m"
+  drive_prompt="n"
   echo $drive_prompt
   if [[ $drive_prompt == "y" ]]; then
 
@@ -532,7 +551,8 @@ echo ""
 
 echo -e "\e[32mDone: Installing ROS ${ros_version} on ${compute_type} in ${platform}\e[0m"
 
-prompt_YESno reboot_prompt "\eWould you like to reboot to apply changes?\e[0m"
+# prompt_YESno reboot_prompt "\eWould you like to reboot to apply changes?\e[0m"
+reboot_prompt="n"
 if [[ $reboot_prompt == "y" ]]; then
   echo "Going to reboot!"
   sudo reboot
