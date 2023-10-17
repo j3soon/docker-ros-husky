@@ -1,0 +1,9 @@
+yaml https://raw.githubusercontent.com/clearpathrobotics/public-rosdistro/master/rosdep/hydro.yaml hydro
+yaml https://raw.githubusercontent.com/clearpathrobotics/public-rosdistro/master/rosdep/indigo.yaml indigo
+yaml https://raw.githubusercontent.com/clearpathrobotics/public-rosdistro/master/rosdep/kinetic.yaml kinetic
+yaml https://raw.githubusercontent.com/clearpathrobotics/public-rosdistro/master/rosdep/melodic.yaml melodic
+yaml https://raw.githubusercontent.com/clearpathrobotics/public-rosdistro/master/rosdep/noetic.yaml noetic
+yaml https://raw.githubusercontent.com/clearpathrobotics/public-rosdistro/master/rosdep/foxy.yaml foxy
+yaml https://raw.githubusercontent.com/clearpathrobotics/public-rosdistro/master/rosdep/humble.yaml humble
+
+yaml https://raw.githubusercontent.com/clearpathrobotics/public-rosdistro/master/rosdep/extras.yaml
