@@ -1,0 +1,14 @@
+version: "3"
+services:
+  ros-husky:
+    image: j3soon/ros-melodic-husky
+    container_name: ros-melodic-husky
+    devices:
+      - /dev/prolific:/dev/prolific
+    working_dir: "/root/catkin_ws"
+    command: |-
+      bash -c "
+      cd ~/catkin_ws &&
+      source ./devel/setup.bash &&
+      sleep infinity
+      "
