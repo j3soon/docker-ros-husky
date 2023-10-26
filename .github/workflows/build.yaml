@@ -1,0 +1,55 @@
+# Ref: https://docs.docker.com/build/ci/github-actions/multi-platform/
+name: Build Docker Images
+
+on:
+  push:
+    branches:
+      - "master"
+    paths:
+      - .github/workflows/build.yaml
+      - thirdparty/**
+      - Dockerfile
+      - Dockerfile.jetson
+
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      -
+        name: Checkout
+        uses: actions/checkout@v3
+      -
+        name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+      -
+        name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+      -
+        name: Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Build and Push amd64
+        run: |
+          docker build -f Dockerfile -t j3soon/ros-melodic-husky:latest-amd64 --build-arg ARCH=amd64/ .
+          docker push j3soon/ros-melodic-husky:latest-amd64
+      - name: Build and Push arm64v8
+        run: |
+          docker build -f Dockerfile.jetson -t j3soon/ros-melodic-husky:latest-arm64v8 --build-arg ARCH=arm64v8/ .
+          docker push j3soon/ros-melodic-husky:latest-arm64v8
+      - name: "Create and Push Manifest (Tag: Current Timestamp)"
+        run: |
+          DATE=$(date +%Y%m%d)
+          docker manifest create \
+            j3soon/ros-melodic-husky:$DATE \
+            --amend j3soon/ros-melodic-husky:latest-amd64 \
+            --amend j3soon/ros-melodic-husky:latest-arm64v8
+          docker manifest push j3soon/ros-melodic-husky:$DATE
+      - name: "Create and Push Manifest (Tag: Latest)"
+        run: |
+          docker manifest create \
+            j3soon/ros-melodic-husky:latest \
+            --amend j3soon/ros-melodic-husky:latest-amd64 \
+            --amend j3soon/ros-melodic-husky:latest-arm64v8
+          docker manifest push j3soon/ros-melodic-husky:latest
