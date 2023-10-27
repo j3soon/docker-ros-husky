@@ -1,7 +1,7 @@
 version: "3"
 services:
   ros-husky:
-    image: j3soon/ros-melodic-husky
+    image: j3soon/ros-melodic-husky:20231026
     container_name: ros-melodic-husky
     devices:
       - /dev/prolific:/dev/prolific
