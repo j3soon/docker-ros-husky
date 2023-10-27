@@ -1,5 +1,7 @@
 # Docker image for Clearpath's Husky A200 on ROS 1 Melodic
 
+[<img src="https://img.shields.io/badge/dockerhub-image-important.svg?logo=docker">](https://hub.docker.com/r/j3soon/ros-melodic-husky/tags)
+
 ## Prerequisites
 
 Hardware:
@@ -28,6 +30,8 @@ Installation of udev rules must be done on the host machine:
 ```
 
 You should see `done` if everything works correctly.
+
+You need to reboot the host machine to make the udev rules take effect.
 
 ## Teleoperation
 
@@ -60,6 +64,12 @@ Although the docker container support hot plugging, if Husky is re-plugged or re
   docker build -f Dockerfile -t j3soon/ros-melodic-husky:latest .
   ```
 
+- On arm64 machine:
+
+  ```sh
+  docker build -f Dockerfile.jetson -t j3soon/ros-melodic-husky:latest .
+  ```
+
 If you want to build an image that supports multiple architectures, please refer to the [build workflow](./.github/workflows/build.yaml).
 
 ## Third Party Scripts
@@ -84,6 +94,10 @@ You should see `done` if everything works correctly.
 Last tested manually on 2023/10/26:
 
 - Ubuntu 18.04.6 LTS (amd64) on Intel CPU
+
+Last tested manually on 2023/10/27:
+
+- Ubuntu 20.04.6 LTS (arm64) on Jetson AGX Xavier (Jetpack 5.1.2)
 
 ## Troubleshooting
 
