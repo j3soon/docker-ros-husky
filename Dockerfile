@@ -2,6 +2,9 @@ FROM osrf/ros:melodic-desktop-full
 # Use osrf/ros instead of ros:melodic for pre-installed development packages
 # Ref: https://github.com/osrf/docker_images#osrf-profile
 
+# Ref: https://robotics.stackexchange.com/a/105553
+# Ref: https://github.com/osrf/docker_images/issues/697#issuecomment-1819626877
+RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 4B63CF8FDE49746E98FA01DDAD19BAB3CBF125EA
 # Setup dependencies for install script
 RUN apt-get update && \
     apt-get install -y \
