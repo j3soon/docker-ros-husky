@@ -29,6 +29,10 @@ RUN . /opt/ros/melodic/setup.sh && \
 # Since we will install udev rules on host, we need to remove the udev rules in the container to prevent conflict.
 RUN rm /lib/udev/rules.d/60-ros-melodic-husky-bringup.rules
 
+# Install common tools
+RUN apt-get update && apt-get install -y git vim tmux \
+    && rm -rf /var/lib/apt/lists/*
+
 # Setup Python environment
 # Ref: https://answers.ros.org/question/326226/importerror-dynamic-module-does-not-define-module-export-function-pyinit__tf2/
 RUN apt-get update \
