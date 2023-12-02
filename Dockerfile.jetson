@@ -26,3 +26,16 @@ RUN . /opt/ros/melodic/setup.sh && \
     rm -rf /var/lib/apt/lists/*
 # Since we will install udev rules on host, we need to remove the udev rules in the container to prevent conflict.
 RUN rm /lib/udev/rules.d/60-ros-melodic-husky-bringup.rules
+
+# Setup Python environment
+# Ref: https://answers.ros.org/question/326226/importerror-dynamic-module-does-not-define-module-export-function-pyinit__tf2/
+RUN apt-get update \
+    && apt-get install -y python3-catkin-pkg-modules python3-rospkg-modules python3-empy \
+    && rm -rf /var/lib/apt/lists/*
+RUN apt-get update \
+    && apt-get install -y python3-pip \
+    && rm -rf /var/lib/apt/lists/*
+RUN pip3 install --upgrade pip
+# Install Python packages
+COPY requirements.txt /root/catkin_ws/
+RUN pip3 install -r /root/catkin_ws/requirements.txt
